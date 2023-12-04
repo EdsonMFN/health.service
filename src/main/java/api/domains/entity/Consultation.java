@@ -32,9 +32,9 @@ public class Consultation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_doctor")
-    private Doctor doctors;
+    private Doctor doctor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_patient")
-    private Patient patients;
+    private Patient patient;
 }

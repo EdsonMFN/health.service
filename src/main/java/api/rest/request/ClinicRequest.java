@@ -1,6 +1,6 @@
-package api.domains.model;
+package api.rest.request;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import api.domains.model.AddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClinicDto {
+public class ClinicRequest {
 
     private Long id;
     private String cnpj;

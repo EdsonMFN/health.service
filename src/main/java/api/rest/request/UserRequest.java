@@ -1,7 +1,7 @@
-package api.domains.model;
+package api.rest.request;
 
+import api.domains.model.PatientDto;
 import api.enums.UserRole;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDto {
+public class UserRequest {
 
     private Long id;
     private String username;

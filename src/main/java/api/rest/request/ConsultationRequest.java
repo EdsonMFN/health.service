@@ -1,7 +1,8 @@
-package api.domains.model;
+package api.rest.request;
 
+import api.domains.model.DoctorDto;
+import api.domains.model.PatientDto;
 import api.enums.Status;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +14,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ConsultationDto {
+public class ConsultationRequest {
 
     private Long id;
     private LocalDate consultationDate;

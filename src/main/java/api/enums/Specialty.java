@@ -7,9 +7,7 @@ import java.util.stream.Stream;
 @Getter
 public enum Specialty {
 
-    PAYMENT_CONFIRMED(1,"payment confirmed"),
-    PAYMENT_REJECTED(2,"payment rejected"),
-    PAYMENT_IN_PROCESSING(3,"payment in processing");
+    GINEOCOLOGISTY(1,"gineocologisty");
 
     private final Integer id;
     private final String description;

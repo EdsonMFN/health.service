@@ -1,26 +1,21 @@
-package api.domains.model;
+package api.rest.request;
 
-import api.domains.entity.Consultation;
+import api.domains.model.ClinicDto;
 import api.enums.Specialty;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class DoctorDto {
+public class DoctorRequest {
 
     private Long id;
     private String name;
     private String crm;
     private Specialty specialty;
     private ClinicDto clinic;
-    private List<ConsultationDto> consultations;
 }
