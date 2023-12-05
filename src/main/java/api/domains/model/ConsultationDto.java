@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ConsultationDto {
 
     private Long id;

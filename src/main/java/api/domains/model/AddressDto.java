@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AddressDto {
 
     private Long id;

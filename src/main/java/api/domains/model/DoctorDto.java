@@ -14,7 +14,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DoctorDto {
 
     private Long id;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,13 +26,14 @@ public class Patient {
         private String name;
 
         @Column(name = "cpf",nullable = false,unique = true)
+        @CPF
         private String cpf;
 
         @Column(name = "age",nullable = false)
         private Integer age;
 
         @Column(name = "rg",nullable = false)
-        private Integer rg;
+        private String rg;
 
         @Column(name = "date_of_birth",nullable = false)
         private LocalDate dateOfBirth;

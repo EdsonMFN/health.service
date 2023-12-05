@@ -2,6 +2,7 @@ package api.domains.entity;
 
 import api.enums.UserRole;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class User {
     private UserRole role;
 
     @Column(name = "email",nullable = false,unique = true)
+    @Email
     private String email;
 
     @OneToOne

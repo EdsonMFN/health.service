@@ -14,14 +14,13 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientDto {
 
         private Long id;
         private String name;
         private String cpf;
         private Integer age;
-        private Integer rg;
+        private String rg;
         private LocalDate dateOfBirth;
         private String phone;
         private AddressDto address;

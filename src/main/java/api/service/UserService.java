@@ -3,10 +3,7 @@ package api.service;
 import api.domains.entity.Address;
 import api.domains.entity.Patient;
 import api.domains.entity.User;
-import api.domains.model.AddressDto;
-import api.domains.model.ConsultationDto;
-import api.domains.model.PatientDto;
-import api.domains.model.UserDto;
+import api.domains.model.*;
 import api.domains.repository.AddressRepository;
 import api.domains.repository.PatientRepository;
 import api.domains.repository.UserRepository;
@@ -47,10 +44,10 @@ public class UserService {
             Patient patient = new Patient();
             patient.setName(patientRequest.getName());
             patient.setCpf(patientRequest.getCpf());
-            patient.setRg(patientRequest.getRg());
+            patient.setRg(rgFormat(patientRequest.getRg()));
             patient.setAge(patientRequest.getAge());
             patient.setDateOfBirth(patientRequest.getDateOfBirth());
-            patient.setPhone(patientRequest.getPhone());
+            patient.setPhone(phoneFormat(patientRequest.getPhone()));
             patient.setAddress(address);
             patientRepository.save(patient);
 
@@ -70,6 +67,7 @@ public class UserService {
     public List<UserResponse> findAllUser(){
         List<User> users = userRepository.findAll();
         List<UserResponse> responses = new ArrayList<>();
+        List<ConsultationDto> consultations = new ArrayList<>();
         try {
             users.forEach(user -> {
                 var patient = user.getPatient();
@@ -83,6 +81,23 @@ public class UserService {
                         .district(address.getDistrict())
                         .number(address.getNumber())
                         .build();
+
+                patient.getConsultations().forEach(consultation -> {
+                    var doctor = consultation.getDoctor();
+                    DoctorDto doctorDto = DoctorDto.builder()
+                            .id(doctor.getId())
+                            .crm(doctor.getCrm())
+                            .name(doctor.getName())
+                            .specialty(doctor.getSpecialty())
+                            .build();
+                    ConsultationDto consultationDto =ConsultationDto.builder()
+                            .id(consultation.getId())
+                            .consultationDate(consultation.getConsultationDate())
+                            .description(consultation.getDescription())
+                            .doctor(doctorDto)
+                            .build();
+                    consultations.add(consultationDto);
+                });
                 PatientDto patientDto = PatientDto.builder()
                         .id(patient.getId())
                         .cpf(patient.getCpf())
@@ -92,6 +107,7 @@ public class UserService {
                         .address(addressDto)
                         .phone(patient.getPhone())
                         .dateOfBirth(patient.getDateOfBirth())
+                        .consultations(consultations)
                         .build();
                 UserResponse userResponse = new UserResponse(UserDto.builder()
                         .id(user.getId())
@@ -124,24 +140,30 @@ public class UserService {
                     .district(address.getDistrict())
                     .number(address.getNumber())
                     .build();
-            patient.getConsultations().forEach
-                    (consultation -> {
-                        ConsultationDto consultationDto =
-                                ConsultationDto.builder()
-                                        .id(consultation.getId())
-                                        .consultationDate(consultation.getConsultationDate())
-                                        .description(consultation.getDescription())
-                                        .build();
-                        consultations.add(consultationDto);
+            patient.getConsultations().forEach(consultation -> {
+                var doctor = consultation.getDoctor();
+                DoctorDto doctorDto = DoctorDto.builder()
+                        .id(doctor.getId())
+                        .crm(doctor.getCrm())
+                        .name(doctor.getName())
+                        .specialty(doctor.getSpecialty())
+                        .build();
+                ConsultationDto consultationDto =ConsultationDto.builder()
+                        .id(consultation.getId())
+                        .consultationDate(consultation.getConsultationDate())
+                        .description(consultation.getDescription())
+                        .doctor(doctorDto)
+                        .build();
+                consultations.add(consultationDto);
             });
             PatientDto patientDto = PatientDto.builder()
                     .id(patient.getId())
                     .cpf(patient.getCpf())
-                    .rg(patient.getRg())
+                    .rg(rgFormat(patient.getRg()))
                     .age(patient.getAge())
                     .name(patient.getName())
                     .address(addressDto)
-                    .phone(patient.getPhone())
+                    .phone(phoneFormat(patient.getPhone()))
                     .dateOfBirth(patient.getDateOfBirth())
                     .consultations(consultations)
                     .build();
@@ -174,10 +196,10 @@ public class UserService {
             Patient patient = new Patient();
             patient.setName(patientRequest.getName());
             patient.setCpf(patientRequest.getCpf());
-            patient.setRg(patientRequest.getRg());
+            patient.setRg(rgFormat(patientRequest.getRg()));
             patient.setAge(patientRequest.getAge());
             patient.setDateOfBirth(patientRequest.getDateOfBirth());
-            patient.setPhone(patientRequest.getPhone());
+            patient.setPhone(phoneFormat(patientRequest.getPhone()));
             patient.setAddress(address);
             patientRepository.save(patient);
 
@@ -200,6 +222,25 @@ public class UserService {
             return new UserResponse("User delete successfully");
         }catch (Exception ex){
             throw new HandlerError(ex.getMessage());
+        }
+    }
+    private String phoneFormat(String phone){
+        if (phone.length() >= 11 && phone.matches("\\d+")){
+            return String.format("(%s)%s",
+                    phone.substring(0,2),
+                    phone.substring(2,11));
+        }else {
+            throw new HandlerError("Invalid phone number, enter numbers only!");
+        }
+    }
+    private String rgFormat (String rg){
+        if (rg.length() >= 7 && rg.matches("\\d+")){
+            return String.format("%s.%s.%s",
+                    rg.charAt(0),
+                    rg.substring(1,4),
+                    rg.substring(4,7));
+        }else {
+            throw new HandlerError("Invalid rg number, enter numbers only!");
         }
     }
 }
