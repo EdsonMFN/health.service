@@ -126,6 +126,7 @@ public class ClinicService {
             throw new HandlerError(ex.getMessage());
         }
     }
+
     public ClinicResponse deleteClinic(Long idClinic){
         Clinic clinic = clinicRepository.findById(idClinic)
                 .orElseThrow(()->new HandlerEntityNotFoundException("User not found whith id"+idClinic));
