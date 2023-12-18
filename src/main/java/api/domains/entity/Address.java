@@ -16,7 +16,6 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_address")
-    @PrimaryKeyJoinColumns(value = @PrimaryKeyJoinColumn)
     private Long id;
 
     @Column(name = "address",nullable = false)

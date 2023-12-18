@@ -17,7 +17,7 @@ public class ConfigFeingClient {
         return Feign.builder()
                 .logger(new Slf4jLogger(ConfigFeingClient.class))
                 .logLevel(Logger.Level.FULL)
-                .options(new Request.Options(60000, 60000))
+                .options(new Request.Options(10000, 10000))
                 .encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
                 .errorDecoder(new AuthenticationErrorDecoder());

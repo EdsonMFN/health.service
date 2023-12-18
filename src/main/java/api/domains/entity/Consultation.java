@@ -17,7 +17,6 @@ public class Consultation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_consultation")
-    @PrimaryKeyJoinColumns(value = @PrimaryKeyJoinColumn)
     private Long id;
 
     @Column(name = "consultation_date")

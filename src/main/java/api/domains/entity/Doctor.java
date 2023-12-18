@@ -17,7 +17,6 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_doctor")
-    @PrimaryKeyJoinColumns(value = @PrimaryKeyJoinColumn)
     private Long id;
 
     @Column(name = "name")

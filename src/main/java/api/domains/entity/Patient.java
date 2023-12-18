@@ -18,7 +18,6 @@ public class Patient {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @PrimaryKeyJoinColumns(value = @PrimaryKeyJoinColumn)
         @Column(name = "id_patient")
         private Long id;
 
