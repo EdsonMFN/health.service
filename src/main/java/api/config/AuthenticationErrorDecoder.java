@@ -21,7 +21,6 @@ public class AuthenticationErrorDecoder implements ErrorDecoder {
     private static final String PONTO = ". ";
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
     @Override
     public Exception decode(String methodKey, Response response) {
         if (response.body() != null && response.status() >= 400 && response.status() <= 500 ){
@@ -45,7 +44,7 @@ public class AuthenticationErrorDecoder implements ErrorDecoder {
                 }
             } catch (IOException e) {
                 logger.error("{} {}: {}", e.getClass().getName(), "Erro ao deserializar o body", e.getMessage());
-                logger.error("{} {}: {}", e.getClass().getName(), "Erro ao deserializar o body", e);
+                logger.error("{} {}", e.getClass().getName(), "Erro ao deserializar o body", e);
             }
         }
         return FeignException.errorStatus(methodKey, response);

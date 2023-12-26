@@ -5,6 +5,7 @@ import api.client.MailClient;
 import api.domains.entity.Patient;
 import api.domains.repository.PatientRepository;
 import api.exception.handlers.HandlerEntityNotFoundException;
+import api.exception.handlers.HandlerError;
 import api.rest.request.MailRequest;
 import api.rest.response.MailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class MailService {
             request.setOwnerRef(patient.getName());
             sender.sendMail(request);
             return new MailResponse("successs");
-        }catch (Exception e){
-            throw new RuntimeException();
+        }catch (Exception ex){
+            throw new HandlerError(ex.getMessage());
         }
     }
 }

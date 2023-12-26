@@ -2,7 +2,6 @@ package api.service;
 
 import api.domains.entity.Address;
 import api.domains.entity.Clinic;
-import api.domains.entity.User;
 import api.domains.model.AddressDto;
 import api.domains.model.ClinicDto;
 import api.domains.repository.AddressRepository;
@@ -78,7 +77,7 @@ public class ClinicService {
     }
     public ClinicResponse findByClinic(Long idClinic){
         Clinic clinic = clinicRepository.findById(idClinic)
-                .orElseThrow(()->new HandlerEntityNotFoundException("User not found whith id"+idClinic));
+                .orElseThrow(()->new HandlerEntityNotFoundException("User not found with id"+idClinic));
         try {
             var address = clinic.getAddress();
             AddressDto addressDto = AddressDto.builder()
@@ -103,9 +102,9 @@ public class ClinicService {
     }
     public ClinicResponse updateClinic(ClinicRequest clinicRequest,Long idClinic){
         Clinic clinic = clinicRepository.findById(idClinic)
-                .orElseThrow(()->new HandlerEntityNotFoundException("User not found whith id"+idClinic));
+                .orElseThrow(()->new HandlerEntityNotFoundException("User not found with id"+idClinic));
         Address address = addressRepository.findById(clinicRequest.getAddress().getId())
-                .orElseThrow(()->new HandlerEntityNotFoundException("User not found whith id"+clinicRequest.getAddress().getId()));
+                .orElseThrow(()->new HandlerEntityNotFoundException("User not found with id"+clinicRequest.getAddress().getId()));
         var addressRequest = clinicRequest.getAddress();
         try {
             address.setAddress(addressRequest.getAddress());
@@ -129,7 +128,7 @@ public class ClinicService {
 
     public ClinicResponse deleteClinic(Long idClinic){
         Clinic clinic = clinicRepository.findById(idClinic)
-                .orElseThrow(()->new HandlerEntityNotFoundException("User not found whith id"+idClinic));
+                .orElseThrow(()->new HandlerEntityNotFoundException("User not found with id"+idClinic));
         try{
             clinicRepository.delete(clinic);
             return new ClinicResponse("Delete clinic successufully");
